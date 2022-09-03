@@ -1,0 +1,20 @@
+{
+  "name": "friend-network-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FluteMonkey/Friend-Network-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FluteMonkey/Friend-Network-API/issues"
+  },
+  "homepage": "https://github.com/FluteMonkey/Friend-Network-API#readme"
+}
