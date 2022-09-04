@@ -19,7 +19,12 @@ const reactionSchema = new Schema({
         type: Date,
         date: new Date(),
     },
-})
+},{
+    toJSON: {
+        getters: true,
+    },
+    id: false,
+});
 
 const thoughtSchema = new Schema({
     thoughtText: {
