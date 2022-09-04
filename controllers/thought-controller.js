@@ -19,7 +19,7 @@ module.exports = {
         .select("-__v")
         .then((dbThoughtData) => {
           if (!dbThoughtData) {
-            res.status(404).json({ message: "No user found with this id" });
+            res.status(404).json({ message: "No thought found with this id" });
             return;
           }
           res.json(dbThoughtData);
@@ -42,7 +42,7 @@ module.exports = {
             )
               .then((dbUserData) => {
                 if (!dbUserData) {
-                  res.status(404).json({ message: "No user found with this id" });
+                  res.status(404).json({ message: "No thought found with this id" });
                   return;
                 }
                 res.json(dbUserData);
@@ -55,5 +55,21 @@ module.exports = {
         Thought.findOneAndDelete({ _id: params.id })
         .then((dbThoughtData) => res.json(dbThoughtData))
         .catch((err) => res.json(err))
+    },
+    updateThought({ params, body }, res) {
+        Thought.findOneAndUpdate({ _id: params.id }, body, {
+            runValiudators: true,
+            new: true,
+        })
+        .then((dbThoughtData) => {
+            if (!dbThoughtData) {
+                res.status(404).json({ message: "No thought found with this id" });
+                return;
+            }
+            res.json(dbThoughtData);
+        })
+        .catch((err) => {
+          res.status(400).json(err);
+        });
     },
 }
