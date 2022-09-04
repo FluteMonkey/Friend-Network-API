@@ -53,5 +53,58 @@ module.exports = {
         .catch((err) => {
           res.status(400).json(err);
         });
+    },
+    addFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $addToSet: { friends: params.friendId } },
+            { runValidators: true, new: true }
+        )
+        .then((dbUserData) => {
+            if (!dbUserData) {
+                res.status(404).json({ message: "No user found with this id" });
+                return;
+            }
+            User.findOneAndUpdate(
+                { _id: params.friendId },
+                { $addToSet: { friends: params.userId } },
+                { runValidators: true, new: true }
+            )
+            .then((dbUserData2) => {
+                if (!dbUserData2) {
+                    res.status(404).json({ message: "No user found with this id" });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch((err) => res.json(err));
+        })
+    },
+    //same as update except pulll instead of adding to set we pull
+    deleteFriend({ params }, res) {
+        User.findOneAndUpdate(
+            { _id: params.userId },
+            { $pull: { friends: params.friendId } },
+            { runValidators: true, new: true }
+        )
+        .then((dbUserData) => {
+            if (!dbUserData) {
+                res.status(404).json({ message: "No user found with this id" });
+                return;
+            }
+            User.findOneAndUpdate(
+                { _id: params.friendId },
+                { $pull: { friends: params.userId } },
+                { runValidators: true, new: true }
+            )
+            .then((dbUserData2) => {
+                if (!dbUserData2) {
+                    res.status(404).json({ message: "No user found with this id" });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch((err) => res.json(err));
+        })
     }
 }
