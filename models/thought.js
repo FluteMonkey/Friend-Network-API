@@ -9,6 +9,15 @@ const reactionSchema = new Schema({
         required: true,
         minLength: 1,
         maxLength: 280,
+    }, username: {
+        type: String,
+        required: true,
+    }, userId: {
+        type: String,
+        required: true.valueOf,
+    }, createdAt: {
+        type: Date,
+        date: new Date(),
     },
 })
 
@@ -32,3 +41,7 @@ const thoughtSchema = new Schema({
     },
     id: false,
 });
+
+const Thought = model("Thought", thoughtSchema);
+
+module.exports = Thought;
